@@ -775,10 +775,10 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="map" className="p-4">
-            <Card>
+            <Card className="rounded-2xl border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Map className="h-5 w-5" />
+                  <Map className="h-5 w-5 text-purple-600" />
                   Issue Map
                 </CardTitle>
                 <CardDescription>
@@ -786,41 +786,43 @@ export default function App() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <MapComponent issues={issues} />
+                <div className="rounded-2xl overflow-hidden shadow-lg">
+                  <MapComponent issues={issues} />
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
           <TabsContent value="profile" className="p-4">
-            <Card>
+            <Card className="rounded-2xl border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
+                  <User className="h-5 w-5 text-indigo-600" />
                   Profile
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {userProfile && (
-                  <div className="space-y-2">
-                    <div>
-                      <Label>Name</Label>
-                      <p className="text-sm">{userProfile.name}</p>
+                  <div className="space-y-4">
+                    <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-4">
+                      <Label className="text-sm font-semibold text-indigo-800">Name</Label>
+                      <p className="text-slate-700 font-medium">{userProfile.name}</p>
                     </div>
-                    <div>
-                      <Label>Email</Label>
-                      <p className="text-sm">{userProfile.email}</p>
+                    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4">
+                      <Label className="text-sm font-semibold text-blue-800">Email</Label>
+                      <p className="text-slate-700 font-medium">{userProfile.email}</p>
                     </div>
-                    <div>
-                      <Label>Phone</Label>
-                      <p className="text-sm">{userProfile.phone}</p>
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4">
+                      <Label className="text-sm font-semibold text-green-800">Phone</Label>
+                      <p className="text-slate-700 font-medium">{userProfile.phone}</p>
                     </div>
-                    <div>
-                      <Label>Address</Label>
-                      <p className="text-sm">{userProfile.address}</p>
+                    <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-4">
+                      <Label className="text-sm font-semibold text-amber-800">Address</Label>
+                      <p className="text-slate-700 font-medium">{userProfile.address}</p>
                     </div>
                   </div>
                 )}
-                <Button onClick={handleSignOut} variant="destructive" className="w-full">
+                <Button onClick={handleSignOut} variant="destructive" className="w-full rounded-xl bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 transition-all duration-200 hover:scale-[1.02]">
                   Sign Out
                 </Button>
               </CardContent>

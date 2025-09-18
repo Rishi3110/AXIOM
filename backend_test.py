@@ -331,6 +331,176 @@ class CivicReporterAPITester:
             self.log_test("Error Handling", False, f"Exception: {str(e)}")
             return False
 
+    def test_create_issue_with_image(self):
+        """Test POST /api/issues - Create issue with image URL"""
+        try:
+            response = self.session.post(
+                f"{self.base_url}/issues",
+                json=TEST_ISSUE_WITH_IMAGE_DATA
+            )
+            
+            if response.status_code == 201:
+                data = response.json()
+                if (data.get('user_id') == TEST_USER_ID and 
+                    data.get('description') == TEST_ISSUE_WITH_IMAGE_DATA['description'] and
+                    data.get('image_url') == TEST_ISSUE_WITH_IMAGE_DATA['image_url']):
+                    self.created_issue_with_image_id = data.get('id')
+                    self.log_test("Create Issue with Image", True, f"Issue with image created successfully. ID: {self.created_issue_with_image_id}")
+                    return True
+                else:
+                    self.log_test("Create Issue with Image", False, "Issue data mismatch in response", data)
+                    return False
+            else:
+                self.log_test("Create Issue with Image", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Create Issue with Image", False, f"Exception: {str(e)}")
+            return False
+
+    def test_create_issue_without_image(self):
+        """Test POST /api/issues - Create issue without image (graceful fallback)"""
+        try:
+            # Test data without image_url
+            issue_data_no_image = {
+                "user_id": TEST_USER_ID,
+                "description": "Garbage accumulation near the community center entrance. Multiple bags left unattended for several days attracting stray animals.",
+                "category": "Garbage",
+                "location": "Community Center Entrance, Test City",
+                "coordinates": {
+                    "lat": 28.6139,
+                    "lng": 77.2090
+                }
+                # No image_url field
+            }
+            
+            response = self.session.post(
+                f"{self.base_url}/issues",
+                json=issue_data_no_image
+            )
+            
+            if response.status_code == 201:
+                data = response.json()
+                if (data.get('user_id') == TEST_USER_ID and 
+                    data.get('description') == issue_data_no_image['description'] and
+                    data.get('image_url') is None):  # Should be None when no image
+                    self.log_test("Create Issue without Image", True, f"Issue without image created successfully. ID: {data.get('id')}")
+                    return True
+                else:
+                    self.log_test("Create Issue without Image", False, "Issue data mismatch in response", data)
+                    return False
+            else:
+                self.log_test("Create Issue without Image", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Create Issue without Image", False, f"Exception: {str(e)}")
+            return False
+
+    def test_image_url_storage_and_retrieval(self):
+        """Test that image URLs are properly stored and retrieved"""
+        if not self.created_issue_with_image_id:
+            self.log_test("Image URL Storage/Retrieval", False, "No issue with image ID available")
+            return False
+            
+        try:
+            # Fetch the issue and verify image URL is stored
+            response = self.session.get(f"{self.base_url}/issues/{self.created_issue_with_image_id}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                image_url = data.get('image_url')
+                
+                if image_url and image_url == TEST_ISSUE_WITH_IMAGE_DATA['image_url']:
+                    self.log_test("Image URL Storage/Retrieval", True, f"Image URL properly stored and retrieved: {image_url}")
+                    return True
+                else:
+                    self.log_test("Image URL Storage/Retrieval", False, f"Image URL mismatch. Expected: {TEST_ISSUE_WITH_IMAGE_DATA['image_url']}, Got: {image_url}")
+                    return False
+            else:
+                self.log_test("Image URL Storage/Retrieval", False, f"Failed to fetch issue: HTTP {response.status_code}")
+                return False
+                
+        except Exception as e:
+            self.log_test("Image URL Storage/Retrieval", False, f"Exception: {str(e)}")
+            return False
+
+    def test_backward_compatibility(self):
+        """Test that existing API endpoints still work after image upload changes"""
+        try:
+            # Test all existing endpoints are still functional
+            endpoints_to_test = [
+                ("/", "GET", None),
+                ("/health", "GET", None),
+                ("/issues", "GET", None),
+                ("/users", "GET", None)
+            ]
+            
+            all_passed = True
+            for endpoint, method, data in endpoints_to_test:
+                try:
+                    if method == "GET":
+                        response = self.session.get(f"{self.base_url}{endpoint}")
+                    elif method == "POST":
+                        response = self.session.post(f"{self.base_url}{endpoint}", json=data)
+                    
+                    if response.status_code not in [200, 201]:
+                        all_passed = False
+                        self.log_test("Backward Compatibility", False, f"Endpoint {endpoint} failed with status {response.status_code}")
+                        break
+                        
+                except Exception as e:
+                    all_passed = False
+                    self.log_test("Backward Compatibility", False, f"Endpoint {endpoint} failed with exception: {str(e)}")
+                    break
+            
+            if all_passed:
+                self.log_test("Backward Compatibility", True, "All existing endpoints working correctly after image upload changes")
+                return True
+            else:
+                return False
+                
+        except Exception as e:
+            self.log_test("Backward Compatibility", False, f"Exception: {str(e)}")
+            return False
+
+    def test_enhanced_error_handling(self):
+        """Test enhanced error handling for various scenarios"""
+        try:
+            test_cases = [
+                # Test missing required fields
+                ({}, 400, "Empty request body"),
+                ({"description": "Test"}, 400, "Missing required fields"),
+                ({"user_id": "invalid", "description": "Test", "category": "Test", "location": "Test"}, 500, "Invalid user_id"),
+            ]
+            
+            all_passed = True
+            for test_data, expected_status, test_name in test_cases:
+                try:
+                    response = self.session.post(f"{self.base_url}/issues", json=test_data)
+                    
+                    if response.status_code == expected_status:
+                        continue  # This test case passed
+                    else:
+                        all_passed = False
+                        self.log_test("Enhanced Error Handling", False, f"{test_name}: Expected {expected_status}, got {response.status_code}")
+                        break
+                        
+                except Exception as e:
+                    all_passed = False
+                    self.log_test("Enhanced Error Handling", False, f"{test_name}: Exception {str(e)}")
+                    break
+            
+            if all_passed:
+                self.log_test("Enhanced Error Handling", True, "Error handling working correctly for various scenarios")
+                return True
+            else:
+                return False
+                
+        except Exception as e:
+            self.log_test("Enhanced Error Handling", False, f"Exception: {str(e)}")
+            return False
+
     def run_all_tests(self):
         """Run all tests in sequence"""
         print("🚀 Starting Civic Reporter Backend API Tests")

@@ -8,6 +8,8 @@ import requests
 import json
 import uuid
 import time
+import io
+import base64
 from datetime import datetime
 
 # Configuration - Use environment variable for base URL

@@ -11,7 +11,7 @@ import time
 from datetime import datetime
 
 # Configuration
-BASE_URL = "https://issue-tracker-63.preview.emergentagent.com/api"
+BASE_URL = "http://localhost:3000/api"
 
 # Test data
 TEST_USER_ID = str(uuid.uuid4())

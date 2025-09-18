@@ -1,0 +1,93 @@
+{
+  "total_tests": 12,
+  "passed": 0,
+  "failed": 12,
+  "success_rate": "0.0%",
+  "timestamp": "2025-09-18T11:54:16.497817",
+  "test_details": [
+    {
+      "test": "Root Endpoint",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:11.125124",
+      "response_data": null
+    },
+    {
+      "test": "Health Endpoint",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:11.633261",
+      "response_data": null
+    },
+    {
+      "test": "Get Issues (Empty)",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:12.143698",
+      "response_data": null
+    },
+    {
+      "test": "Get Users (Empty)",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:12.651487",
+      "response_data": null
+    },
+    {
+      "test": "Create User",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:13.161649",
+      "response_data": null
+    },
+    {
+      "test": "Create Issue",
+      "success": false,
+      "message": "HTTP 502: ",
+      "timestamp": "2025-09-18T11:54:13.671850",
+      "response_data": null
+    },
+    {
+      "test": "Get Specific Issue",
+      "success": false,
+      "message": "No issue ID available (create issue test failed)",
+      "timestamp": "2025-09-18T11:54:14.171988",
+      "response_data": null
+    },
+    {
+      "test": "Update Issue Status",
+      "success": false,
+      "message": "No issue ID available (create issue test failed)",
+      "timestamp": "2025-09-18T11:54:14.672119",
+      "response_data": null
+    },
+    {
+      "test": "CORS Headers",
+      "success": false,
+      "message": "OPTIONS request failed: HTTP 502",
+      "timestamp": "2025-09-18T11:54:15.179451",
+      "response_data": null
+    },
+    {
+      "test": "Error Handling (404)",
+      "success": false,
+      "message": "Expected 404, got 502",
+      "timestamp": "2025-09-18T11:54:15.783695",
+      "response_data": null
+    },
+    {
+      "test": "Error Handling (Invalid ID)",
+      "success": false,
+      "message": "Expected 404, got 502",
+      "timestamp": "2025-09-18T11:54:15.985733",
+      "response_data": null
+    },
+    {
+      "test": "Error Handling (Missing Fields)",
+      "success": false,
+      "message": "Expected 400, got 502",
+      "timestamp": "2025-09-18T11:54:15.997593",
+      "response_data": null
+    }
+  ]
+}

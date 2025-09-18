@@ -555,10 +555,10 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="report" className="p-4 space-y-6">
-            <Card>
+            <Card className="rounded-2xl border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Home className="h-5 w-5" />
+                  <Plus className="h-5 w-5 text-blue-600" />
                   Report New Issue
                 </CardTitle>
                 <CardDescription>
@@ -575,6 +575,7 @@ export default function App() {
                       value={issueForm.description}
                       onChange={(e) => setIssueForm(prev => ({ ...prev, description: e.target.value }))}
                       required
+                      className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                     />
                   </div>
                   
@@ -584,10 +585,10 @@ export default function App() {
                       value={issueForm.category}
                       onValueChange={(value) => setIssueForm(prev => ({ ...prev, category: value }))}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200">
                         <SelectValue placeholder="Select issue category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="rounded-xl">
                         {ISSUE_CATEGORIES.map((category) => (
                           <SelectItem key={category} value={category}>
                             {category}
@@ -606,12 +607,13 @@ export default function App() {
                         value={issueForm.location}
                         onChange={(e) => setIssueForm(prev => ({ ...prev, location: e.target.value }))}
                         required
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                       />
                       <Button
                         type="button"
                         variant="outline"
                         onClick={getCurrentLocation}
-                        className="shrink-0"
+                        className="shrink-0 rounded-xl border-gray-200 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
                       >
                         <MapPin className="h-4 w-4" />
                       </Button>
@@ -626,25 +628,28 @@ export default function App() {
                         type="file"
                         accept="image/*"
                         onChange={handleFileUpload}
-                        className="file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200 file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-600"
                       />
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => document.getElementById('photo').click()}
-                        className="shrink-0"
+                        className="shrink-0 rounded-xl border-gray-200 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200"
                       >
                         <Camera className="h-4 w-4" />
                       </Button>
                     </div>
                     {selectedFile && (
-                      <p className="text-sm text-muted-foreground mt-1">
-                        Selected: {selectedFile.name}
-                      </p>
+                      <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-xl">
+                        <p className="text-sm text-green-700 flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4" />
+                          Selected: {selectedFile.name}
+                        </p>
+                      </div>
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
+                  <Button type="submit" className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                     {loading ? 'Submitting...' : 'Submit Issue'}
                   </Button>
                 </form>

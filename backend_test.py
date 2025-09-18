@@ -17,11 +17,11 @@ BASE_URL = "http://localhost:3000/api"
 TEST_USER_ID = str(uuid.uuid4())
 TEST_USER_DATA = {
     "id": TEST_USER_ID,
-    "name": "John Doe",
-    "email": "john.doe@example.com",
+    "name": "Jane Smith",
+    "email": f"jane.smith.{int(time.time())}@example.com",  # Unique email
     "phone": "9876543210",
-    "address": "123 Main Street, Test City, TC 12345",
-    "aadhar_number": "123456789012"
+    "address": "456 Oak Street, Test City, TC 12345",
+    "aadhar_number": "987654321098"
 }
 
 TEST_ISSUE_DATA = {

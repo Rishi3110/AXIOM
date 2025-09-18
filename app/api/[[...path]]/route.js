@@ -31,6 +31,8 @@ export async function GET(request) {
   try {
     const { pathname } = new URL(request.url)
     const path = pathname.replace('/api/', '')
+    
+    console.log('Debug - pathname:', pathname, 'path:', path)
 
     // Root endpoint
     if (!path || path === '' || path === '/') {

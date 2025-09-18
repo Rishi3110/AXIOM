@@ -240,8 +240,7 @@ export async function PUT(request) {
       const { data, error } = await supabase
         .from('issues')
         .update({ 
-          status,
-          updatedAt: new Date().toISOString()
+          status
         })
         .eq('id', issueId)
         .select()

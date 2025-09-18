@@ -243,7 +243,7 @@ export async function PUT(request) {
         .from('issues')
         .update({ 
           status,
-          updated_at: new Date().toISOString()
+          updatedAt: new Date().toISOString()
         })
         .eq('id', issueId)
         .select()

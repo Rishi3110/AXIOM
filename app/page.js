@@ -658,36 +658,42 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="issues" className="p-4">
-            <Card>
+            <Card className="rounded-2xl border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <List className="h-5 w-5" />
+                  <List className="h-5 w-5 text-blue-600" />
                   All Issues ({issues.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {issues.map((issue) => (
-                    <div key={issue.id} className="border rounded-lg p-4">
+                    <div key={issue.id} className="border-0 bg-gradient-to-r from-white to-gray-50 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all duration-200">
                       <div className="flex justify-between items-start mb-2">
                         <div>
-                          <h3 className="font-semibold">{issue.id}</h3>
+                          <h3 className="font-semibold text-slate-800">{issue.id}</h3>
                           <p className="text-sm text-muted-foreground">{issue.category}</p>
                         </div>
-                        <Badge className={getStatusColor(issue.status)}>
+                        <Badge className={`${getStatusColor(issue.status)} rounded-full px-3 py-1`}>
                           {issue.status}
                         </Badge>
                       </div>
-                      <p className="text-sm mb-2">{issue.description}</p>
+                      <p className="text-sm mb-2 text-slate-700">{issue.description}</p>
                       <p className="text-xs text-muted-foreground">
                         📍 {issue.location} • {new Date(issue.created_at).toLocaleDateString()}
                       </p>
                       {issue.image_url && (
-                        <img
-                          src={issue.image_url}
-                          alt="Issue"
-                          className="mt-2 w-full h-32 object-cover rounded"
-                        />
+                        <div className="mt-3">
+                          <img
+                            src={issue.image_url}
+                            alt="Issue"
+                            className="w-full h-48 object-cover rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+                            onError={(e) => {
+                              e.target.style.display = 'none'
+                              console.error('Failed to load image:', issue.image_url)
+                            }}
+                          />
+                        </div>
                       )}
                     </div>
                   ))}

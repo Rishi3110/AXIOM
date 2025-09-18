@@ -1,7 +1,22 @@
 {
-  "total_tests": 0,
-  "passed": 0,
-  "failed": 0,
-  "timestamp": "2025-09-18T18:29:31.136243",
-  "test_details": []
+  "total_tests": 2,
+  "passed": 1,
+  "failed": 1,
+  "timestamp": "2025-09-18T18:30:03.105447",
+  "test_details": [
+    {
+      "test": "Storage Connection",
+      "success": true,
+      "message": "Connected to Supabase storage. Found 0 buckets",
+      "timestamp": "2025-09-18T18:30:03.104129",
+      "response_data": null
+    },
+    {
+      "test": "Issue Photos Bucket Exists",
+      "success": false,
+      "message": "issue-photos bucket not found. Available buckets: []",
+      "timestamp": "2025-09-18T18:30:03.105391",
+      "response_data": null
+    }
+  ]
 }

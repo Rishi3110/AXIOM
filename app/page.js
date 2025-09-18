@@ -231,21 +231,44 @@ export default function App() {
       
       // Upload image if selected
       if (selectedFile) {
-        const fileExt = selectedFile.name.split('.').pop()
-        const fileName = `${issueId}.${fileExt}`
-        
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from('issue-photos')
-          .upload(fileName, selectedFile)
-        
-        if (uploadError) throw uploadError
-        
-        // Get public URL
-        const { data: { publicUrl } } = supabase.storage
-          .from('issue-photos')
-          .getPublicUrl(fileName)
-        
-        imageUrl = publicUrl
+        try {
+          const fileExt = selectedFile.name.split('.').pop()
+          const fileName = `${issueId}.${fileExt}`
+          
+          console.log('Uploading file:', fileName, 'Size:', selectedFile.size)
+          
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from('issue-photos')
+            .upload(fileName, selectedFile, {
+              cacheControl: '3600',
+              upsert: false
+            })
+          
+          if (uploadError) {
+            console.error('Upload error:', uploadError)
+            // If bucket doesn't exist, try to create it
+            if (uploadError.message.includes('not found') || uploadError.message.includes('does not exist')) {
+              toast.error('Storage bucket not found. Please check Supabase storage configuration.')
+            } else {
+              toast.error('Failed to upload image: ' + uploadError.message)
+            }
+            throw uploadError
+          }
+          
+          console.log('Upload successful:', uploadData)
+          
+          // Get public URL
+          const { data: { publicUrl } } = supabase.storage
+            .from('issue-photos')
+            .getPublicUrl(fileName)
+          
+          imageUrl = publicUrl
+          console.log('Public URL:', imageUrl)
+        } catch (uploadError) {
+          console.error('Image upload failed:', uploadError)
+          toast.error('Image upload failed. Proceeding without image.')
+          // Continue without image instead of failing completely
+        }
       }
 
       // Create issue record
@@ -280,6 +303,7 @@ export default function App() {
       
       toast.success(`Issue submitted successfully! Issue ID: ${issueId}`)
     } catch (error) {
+      console.error('Submit issue error:', error)
       toast.error('Failed to submit issue: ' + error.message)
     } finally {
       setLoading(false)

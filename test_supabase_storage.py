@@ -8,14 +8,26 @@ import os
 import requests
 import json
 from datetime import datetime
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv('/app/.env')
+# Load environment variables manually
+def load_env_vars():
+    env_vars = {}
+    try:
+        with open('/app/.env', 'r') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    env_vars[key] = value
+    except Exception as e:
+        print(f"Error loading .env file: {e}")
+    return env_vars
+
+env_vars = load_env_vars()
 
 # Supabase configuration from environment
-SUPABASE_URL = os.getenv('NEXT_PUBLIC_SUPABASE_URL')
-SUPABASE_ANON_KEY = os.getenv('NEXT_PUBLIC_SUPABASE_ANON_KEY')
+SUPABASE_URL = env_vars.get('NEXT_PUBLIC_SUPABASE_URL')
+SUPABASE_ANON_KEY = env_vars.get('NEXT_PUBLIC_SUPABASE_ANON_KEY')
 
 class SupabaseStorageTester:
     def __init__(self):

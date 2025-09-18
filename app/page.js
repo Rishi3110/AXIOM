@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
-import { Home, List, Search, Map, User, Camera, MapPin, Upload } from "lucide-react"
+import { Home, List, Search, Map, User, Camera, MapPin, Upload, FileText, Clock, CheckCircle } from "lucide-react"
 import dynamic from 'next/dynamic'
 
 // Dynamic import for Map component to avoid SSR issues
@@ -65,6 +65,12 @@ export default function App() {
   const [selectedFile, setSelectedFile] = useState(null)
   const [trackingId, setTrackingId] = useState('')
   const [trackedIssue, setTrackedIssue] = useState(null)
+
+  // Dashboard counters
+  const totalIssues = issues.length
+  const submittedCount = issues.filter(i => i.status === ISSUE_STATUSES.SUBMITTED).length
+  const acknowledgedCount = issues.filter(i => i.status === ISSUE_STATUSES.ACKNOWLEDGED).length
+  const resolvedCount = issues.filter(i => i.status === ISSUE_STATUSES.RESOLVED).length
 
   useEffect(() => {
     checkAuth()
@@ -438,20 +444,114 @@ export default function App() {
       {/* Header */}
       <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center">
         <h1 className="text-xl font-bold">Civic Reporter</h1>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setActiveTab('profile')}
-          className="hover:bg-primary-foreground/20"
-        >
-          <User className="h-5 w-5" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            size="sm"
+            onClick={() => setActiveTab('report')}
+            className="bg-white text-primary hover:bg-white/90"
+          >
+            + Report
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setActiveTab('profile')}
+            className="hover:bg-primary-foreground/20"
+          >
+            <User className="h-5 w-5" />
+          </Button>
+        </div>
       </header>
 
       {/* Main Content */}
       <div className="pb-20">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsContent value="home" className="p-4 space-y-6">
+            <div className="space-y-4">
+              <div>
+                <h2 className="text-2xl font-bold">Welcome, {userProfile?.name || 'Citizen'}!</h2>
+                <p className="text-muted-foreground">Report and track civic issues in your area</p>
+              </div>
+
+              <div className="bg-slate-900 text-white rounded-xl p-5 shadow">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 className="text-lg font-semibold">Report New Issue</h3>
+                    <p className="text-sm opacity-80">Help improve your community</p>
+                  </div>
+                  <Button onClick={() => setActiveTab('report')} className="bg-white text-slate-900 hover:bg-white/90">
+                    + Report
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm text-muted-foreground">Total Issues</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <FileText className="h-5 w-5 text-slate-600" />
+                      <span className="text-2xl font-semibold">{totalIssues}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm text-muted-foreground">Submitted</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-amber-500" />
+                      <span className="text-2xl font-semibold">{submittedCount}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm text-muted-foreground">Acknowledged</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <Clock className="h-5 w-5 text-blue-500" />
+                      <span className="text-2xl font-semibold">{acknowledgedCount}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="p-4">
+                    <p className="text-sm text-muted-foreground">Resolved</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5 text-green-600" />
+                      <span className="text-2xl font-semibold">{resolvedCount}</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="space-y-3">
+                <div
+                  role="button"
+                  onClick={() => setActiveTab('issues')}
+                  className="w-full border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted/50"
+                >
+                  <div className="flex items-center gap-2">
+                    <FileText className="h-4 w-4" />
+                    <span>View All Issues</span>
+                  </div>
+                  <span className="text-muted-foreground">›</span>
+                </div>
+                <div
+                  role="button"
+                  onClick={() => setActiveTab('track')}
+                  className="w-full border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted/50"
+                >
+                  <div className="flex items-center gap-2">
+                    <Search className="h-4 w-4" />
+                    <span>Track Issue by ID</span>
+                  </div>
+                  <span className="text-muted-foreground">›</span>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="report" className="p-4 space-y-6">
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

@@ -103,7 +103,6 @@ export async function GET(request) {
       const { data, error } = await supabase
         .from('users')
         .select('id, name, email, createdAt')
-        .order('createdAt', { ascending: false })
 
       if (error) {
         console.error('Error fetching users:', error)

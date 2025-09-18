@@ -33,7 +33,7 @@ export async function GET(request) {
     const path = pathname.replace('/api/', '')
 
     // Root endpoint
-    if (!path || path === '') {
+    if (!path || path === '' || path === '/') {
       return createResponse({ 
         message: 'Civic Reporter API is running!',
         endpoints: {

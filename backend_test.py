@@ -59,6 +59,7 @@ class CivicReporterAPITester:
             'Accept': 'application/json'
         })
         self.created_issue_id = None
+        self.created_issue_with_image_id = None
         self.test_results = []
 
     def log_test(self, test_name, success, message, response_data=None):

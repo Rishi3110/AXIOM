@@ -10,8 +10,9 @@ import uuid
 import time
 from datetime import datetime
 
-# Configuration
-BASE_URL = "http://localhost:3000/api"
+# Configuration - Use environment variable for base URL
+import os
+BASE_URL = os.getenv('NEXT_PUBLIC_BASE_URL', 'http://localhost:3000') + '/api'
 
 # Test data
 TEST_USER_ID = str(uuid.uuid4())

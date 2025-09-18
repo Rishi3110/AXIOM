@@ -38,6 +38,18 @@ TEST_ISSUE_DATA = {
     }
 }
 
+TEST_ISSUE_WITH_IMAGE_DATA = {
+    "user_id": TEST_USER_ID,
+    "description": "Broken streetlight with exposed wiring creating safety hazard on Park Avenue near the bus stop. The light has been flickering for weeks and now completely dark.",
+    "category": "Streetlight",
+    "location": "Park Avenue Bus Stop, Test City",
+    "coordinates": {
+        "lat": 28.6129,
+        "lng": 77.2295
+    },
+    "image_url": "https://example.com/test-image.jpg"  # This will be updated with actual Supabase URL
+}
+
 class CivicReporterAPITester:
     def __init__(self):
         self.base_url = BASE_URL

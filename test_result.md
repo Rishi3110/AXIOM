@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the Civic Reporter backend API endpoints to ensure Supabase integration is working properly"
+user_problem_statement: "Test the updated Civic Reporter backend API endpoints after UI changes to ensure image upload integration, API endpoints functionality, issue creation with photos, storage bucket access, and enhanced error handling are working properly"
 
 backend:
   - task: "API Health Check Endpoint"

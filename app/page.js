@@ -465,7 +465,7 @@ export default function App() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <Card>
+                <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Total Issues</p>
                     <div className="mt-1 flex items-center gap-2">
@@ -474,7 +474,7 @@ export default function App() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-amber-50 to-yellow-50">
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Submitted</p>
                     <div className="mt-1 flex items-center gap-2">
@@ -483,7 +483,7 @@ export default function App() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50">
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Acknowledged</p>
                     <div className="mt-1 flex items-center gap-2">
@@ -492,7 +492,7 @@ export default function App() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
+                <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Resolved</p>
                     <div className="mt-1 flex items-center gap-2">

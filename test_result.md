@@ -296,12 +296,14 @@ metadata:
 
 test_plan:
   current_focus:
-    - "All backend API endpoints tested"
+    - "Storage Bucket Access"
   stuck_tasks:
-    - "API Root Endpoint"
+    - "Storage Bucket Access"
   test_all: true
   test_priority: "high_first"
 
 agent_communication:
   - agent: "testing"
     message: "Comprehensive backend API testing completed. 9/10 tests passing (91.7% success rate). All core functionality working correctly including Supabase integration, CRUD operations, foreign key relationships, validation, and error handling. Only minor issue with root endpoint response format."
+  - agent: "testing"
+    message: "Image upload functionality testing completed. Backend API properly handles image_url field and graceful fallbacks work correctly. However, Supabase storage bucket 'issue-photos' does not exist and needs to be created in Supabase dashboard with proper public access policies. Frontend error handling is working correctly for upload failures."

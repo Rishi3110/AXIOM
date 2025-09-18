@@ -357,11 +357,11 @@ export default function App() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 p-4">
         <div className="max-w-md mx-auto pt-8">
-          <Card>
+          <Card className="rounded-2xl border-0 shadow-2xl bg-gradient-to-br from-white to-gray-50">
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl font-bold text-primary">Civic Reporter</CardTitle>
+              <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Civic Reporter</CardTitle>
               <CardDescription>Report civic issues in your community</CardDescription>
             </CardHeader>
             <CardContent>
@@ -369,14 +369,14 @@ export default function App() {
                 <Button
                   variant={isLogin ? "default" : "outline"}
                   onClick={() => setIsLogin(true)}
-                  className="flex-1 mr-2"
+                  className="flex-1 mr-2 rounded-xl transition-all duration-200 hover:scale-[1.02]"
                 >
                   Login
                 </Button>
                 <Button
                   variant={!isLogin ? "default" : "outline"}
                   onClick={() => setIsLogin(false)}
-                  className="flex-1 ml-2"
+                  className="flex-1 ml-2 rounded-xl transition-all duration-200 hover:scale-[1.02]"
                 >
                   Sign Up
                 </Button>
@@ -394,6 +394,7 @@ export default function App() {
                         value={authForm.name}
                         onChange={(e) => setAuthForm(prev => ({ ...prev, name: e.target.value }))}
                         required
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                       />
                     </div>
                     <div>
@@ -405,6 +406,7 @@ export default function App() {
                         value={authForm.phone}
                         onChange={(e) => setAuthForm(prev => ({ ...prev, phone: e.target.value }))}
                         required
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                       />
                     </div>
                     <div>
@@ -415,6 +417,7 @@ export default function App() {
                         value={authForm.address}
                         onChange={(e) => setAuthForm(prev => ({ ...prev, address: e.target.value }))}
                         required
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                       />
                     </div>
                     <div>
@@ -426,6 +429,7 @@ export default function App() {
                         value={authForm.aadhar}
                         onChange={(e) => setAuthForm(prev => ({ ...prev, aadhar: e.target.value }))}
                         required
+                        className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                       />
                     </div>
                   </>
@@ -439,6 +443,7 @@ export default function App() {
                     value={authForm.email}
                     onChange={(e) => setAuthForm(prev => ({ ...prev, email: e.target.value }))}
                     required
+                    className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                   />
                 </div>
                 <div>
@@ -450,9 +455,10 @@ export default function App() {
                     value={authForm.password}
                     onChange={(e) => setAuthForm(prev => ({ ...prev, password: e.target.value }))}
                     required
+                    className="rounded-xl border-gray-200 focus:border-blue-500 transition-colors duration-200"
                   />
                 </div>
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 hover:scale-[1.02]" disabled={loading}>
                   {loading ? 'Processing...' : (isLogin ? 'Login' : 'Sign Up')}
                 </Button>
               </form>

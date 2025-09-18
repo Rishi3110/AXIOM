@@ -103,8 +103,8 @@ export async function GET(request) {
     if (path === 'users') {
       const { data, error } = await supabase
         .from('users')
-        .select('id, name, email, created_at')
-        .order('created_at', { ascending: false })
+        .select('id, name, email, createdAt')
+        .order('createdAt', { ascending: false })
 
       if (error) {
         console.error('Error fetching users:', error)

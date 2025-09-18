@@ -507,10 +507,10 @@ export default function App() {
                 <div
                   role="button"
                   onClick={() => setActiveTab('issues')}
-                  className="w-full border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted/50"
+                  className="w-full border-0 bg-gradient-to-r from-gray-50 to-white rounded-2xl px-4 py-3 flex items-center justify-between hover:shadow-md transition-all duration-200 hover:scale-[1.02] shadow-sm"
                 >
                   <div className="flex items-center gap-2">
-                    <FileText className="h-4 w-4" />
+                    <FileText className="h-4 w-4 text-blue-600" />
                     <span>View All Issues</span>
                   </div>
                   <span className="text-muted-foreground">›</span>
@@ -518,10 +518,10 @@ export default function App() {
                 <div
                   role="button"
                   onClick={() => setActiveTab('track')}
-                  className="w-full border rounded-lg px-4 py-3 flex items-center justify-between hover:bg-muted/50"
+                  className="w-full border-0 bg-gradient-to-r from-gray-50 to-white rounded-2xl px-4 py-3 flex items-center justify-between hover:shadow-md transition-all duration-200 hover:scale-[1.02] shadow-sm"
                 >
                   <div className="flex items-center gap-2">
-                    <Search className="h-4 w-4" />
+                    <Search className="h-4 w-4 text-green-600" />
                     <span>Track Issue by ID</span>
                   </div>
                   <span className="text-muted-foreground">›</span>

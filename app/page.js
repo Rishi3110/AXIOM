@@ -451,14 +451,15 @@ export default function App() {
                 <p className="text-muted-foreground">Report and track civic issues in your area</p>
               </div>
 
-              <div className="bg-slate-900 text-white rounded-xl p-5 shadow">
+              <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white rounded-2xl p-6 shadow-xl">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-lg font-semibold">Report New Issue</h3>
                     <p className="text-sm opacity-80">Help improve your community</p>
                   </div>
-                  <Button onClick={() => setActiveTab('report')} className="bg-white text-slate-900 hover:bg-white/90">
-                    + Report
+                  <Button onClick={() => setActiveTab('report')} className="bg-white text-slate-900 hover:bg-white/90 rounded-xl transition-all duration-200 hover:scale-105">
+                    <Plus className="h-4 w-4 mr-1" />
+                    Report
                   </Button>
                 </div>
               </div>

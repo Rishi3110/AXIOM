@@ -285,6 +285,18 @@ backend:
         agent: "testing"
         comment: "Enhanced error handling working correctly. Frontend properly catches upload failures, displays appropriate error messages, and continues with issue creation without image. Error scenarios tested include missing bucket, invalid requests, and network failures."
 
+  - task: "API Root Endpoint"
+    implemented: true
+    working: false
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 1
+    priority: "low"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Minor: GET /api/ root endpoint not returning expected JSON response. Returns '/api' string instead of API info. This is likely a Next.js catch-all route handling issue but doesn't affect core functionality."
+
 frontend:
   # No frontend testing performed as per instructions
 

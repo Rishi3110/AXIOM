@@ -708,10 +708,10 @@ export default function App() {
           </TabsContent>
 
           <TabsContent value="track" className="p-4">
-            <Card>
+            <Card className="rounded-2xl border-0 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Search className="h-5 w-5" />
+                  <Search className="h-5 w-5 text-green-600" />
                   Track Issue
                 </CardTitle>
                 <CardDescription>
@@ -724,24 +724,25 @@ export default function App() {
                     placeholder="Enter Issue ID (e.g., CIV-1234567890-ABCDE)"
                     value={trackingId}
                     onChange={(e) => setTrackingId(e.target.value)}
+                    className="rounded-xl border-gray-200 focus:border-green-500 transition-colors duration-200"
                   />
-                  <Button onClick={trackIssue}>
+                  <Button onClick={trackIssue} className="rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 transition-all duration-200">
                     <Search className="h-4 w-4" />
                   </Button>
                 </div>
 
                 {trackedIssue && (
-                  <div className="border rounded-lg p-4 bg-muted/50">
+                  <div className="border-0 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-4 shadow-lg">
                     <div className="flex justify-between items-start mb-2">
                       <div>
-                        <h3 className="font-semibold">{trackedIssue.id}</h3>
+                        <h3 className="font-semibold text-slate-800">{trackedIssue.id}</h3>
                         <p className="text-sm text-muted-foreground">{trackedIssue.category}</p>
                       </div>
-                      <Badge className={getStatusColor(trackedIssue.status)}>
+                      <Badge className={`${getStatusColor(trackedIssue.status)} rounded-full px-3 py-1`}>
                         {trackedIssue.status}
                       </Badge>
                     </div>
-                    <p className="text-sm mb-2">{trackedIssue.description}</p>
+                    <p className="text-sm mb-2 text-slate-700">{trackedIssue.description}</p>
                     <p className="text-xs text-muted-foreground">
                       📍 {trackedIssue.location} • Reported by: {trackedIssue.users?.name}
                     </p>
@@ -749,11 +750,17 @@ export default function App() {
                       📅 {new Date(trackedIssue.created_at).toLocaleString()}
                     </p>
                     {trackedIssue.image_url && (
-                      <img
-                        src={trackedIssue.image_url}
-                        alt="Issue"
-                        className="mt-2 w-full h-32 object-cover rounded"
-                      />
+                      <div className="mt-3">
+                        <img
+                          src={trackedIssue.image_url}
+                          alt="Issue"
+                          className="w-full h-48 object-cover rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
+                          onError={(e) => {
+                            e.target.style.display = 'none'
+                            console.error('Failed to load tracked issue image:', trackedIssue.image_url)
+                          }}
+                        />
+                      </div>
                     )}
                   </div>
                 )}

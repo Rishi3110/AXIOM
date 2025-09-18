@@ -513,8 +513,13 @@ class CivicReporterAPITester:
             self.test_get_users_empty,
             self.test_create_user,
             self.test_create_issue,
+            self.test_create_issue_with_image,
+            self.test_create_issue_without_image,
             self.test_get_specific_issue,
             self.test_update_issue_status,
+            self.test_image_url_storage_and_retrieval,
+            self.test_backward_compatibility,
+            self.test_enhanced_error_handling,
             self.test_cors_headers,
             self.test_error_handling
         ]

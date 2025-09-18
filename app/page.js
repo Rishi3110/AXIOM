@@ -781,43 +781,61 @@ export default function App() {
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t">
-        <div className="flex justify-around py-2">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-white via-gray-50 to-white border-t border-gray-200 shadow-lg">
+        <div className="flex justify-around py-3">
           <Button
             variant={activeTab === 'home' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('home')}
-            className="flex-col h-auto py-2"
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
           >
-            <Home className="h-4 w-4 mb-1" />
+            <Home className="h-5 w-5 mb-1" />
             <span className="text-xs">Home</span>
+          </Button>
+          <Button
+            variant={activeTab === 'report' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setActiveTab('report')}
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105 bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700"
+          >
+            <Plus className="h-5 w-5 mb-1" />
+            <span className="text-xs">Report</span>
           </Button>
           <Button
             variant={activeTab === 'issues' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('issues')}
-            className="flex-col h-auto py-2"
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
           >
-            <List className="h-4 w-4 mb-1" />
+            <List className="h-5 w-5 mb-1" />
             <span className="text-xs">Issues</span>
           </Button>
           <Button
             variant={activeTab === 'track' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('track')}
-            className="flex-col h-auto py-2"
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
           >
-            <Search className="h-4 w-4 mb-1" />
+            <Search className="h-5 w-5 mb-1" />
             <span className="text-xs">Track</span>
           </Button>
           <Button
             variant={activeTab === 'map' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setActiveTab('map')}
-            className="flex-col h-auto py-2"
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
           >
-            <Map className="h-4 w-4 mb-1" />
+            <Map className="h-5 w-5 mb-1" />
             <span className="text-xs">Map</span>
+          </Button>
+          <Button
+            variant={activeTab === 'profile' ? 'default' : 'ghost'}
+            size="sm"
+            onClick={() => setActiveTab('profile')}
+            className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
+          >
+            <User className="h-5 w-5 mb-1" />
+            <span className="text-xs">Profile</span>
           </Button>
         </div>
       </div>

@@ -65,7 +65,6 @@ export async function GET(request) {
             email
           )
         `)
-        .order('createdAt', { ascending: false })
 
       if (error) {
         console.error('Error fetching issues:', error)

@@ -1,104 +1,303 @@
-import { MongoClient } from 'mongodb'
-import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
-
-// MongoDB connection
-let client
-let db
-
-async function connectToMongo() {
-  if (!client) {
-    client = new MongoClient(process.env.MONGO_URL)
-    await client.connect()
-    db = client.db(process.env.DB_NAME)
-  }
-  return db
-}
+import { supabase } from '../../../lib/supabase.js'
 
 // Helper function to handle CORS
-function handleCORS(response) {
-  response.headers.set('Access-Control-Allow-Origin', process.env.CORS_ORIGINS || '*')
-  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  response.headers.set('Access-Control-Allow-Credentials', 'true')
-  return response
+function handleCORS() {
+  return {
+    'Access-Control-Allow-Origin': process.env.CORS_ORIGINS || '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  }
 }
 
-// OPTIONS handler for CORS
+// Helper function to create response with CORS headers
+function createResponse(data, status = 200) {
+  return NextResponse.json(data, {
+    status,
+    headers: handleCORS()
+  })
+}
+
+// Handle preflight requests
 export async function OPTIONS() {
-  return handleCORS(new NextResponse(null, { status: 200 }))
+  return new NextResponse(null, {
+    status: 200,
+    headers: handleCORS()
+  })
 }
 
-// Route handler function
-async function handleRoute(request, { params }) {
-  const { path = [] } = params
-  const route = `/${path.join('/')}`
-  const method = request.method
-
+// GET handler
+export async function GET(request) {
   try {
-    const db = await connectToMongo()
+    const { pathname } = new URL(request.url)
+    const path = pathname.replace('/api/', '')
 
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/root' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
-    }
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
+    // Root endpoint
+    if (!path || path === '') {
+      return createResponse({ 
+        message: 'Civic Reporter API is running!',
+        endpoints: {
+          '/api/issues': 'Get all issues',
+          '/api/issues/[id]': 'Get specific issue',
+          '/api/users': 'Get all users',
+          '/api/health': 'Health check'
+        }
+      })
     }
 
-    // Status endpoints - POST /api/status
-    if (route === '/status' && method === 'POST') {
-      const body = await request.json()
-      
-      if (!body.client_name) {
-        return handleCORS(NextResponse.json(
-          { error: "client_name is required" }, 
-          { status: 400 }
-        ))
+    // Health check
+    if (path === 'health') {
+      return createResponse({ 
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        database: 'connected'
+      })
+    }
+
+    // Get all issues
+    if (path === 'issues') {
+      const { data, error } = await supabase
+        .from('issues')
+        .select(`
+          *,
+          users (
+            name,
+            email
+          )
+        `)
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching issues:', error)
+        return createResponse({ error: 'Failed to fetch issues' }, 500)
       }
 
-      const statusObj = {
-        id: uuidv4(),
-        client_name: body.client_name,
-        timestamp: new Date()
-      }
-
-      await db.collection('status_checks').insertOne(statusObj)
-      return handleCORS(NextResponse.json(statusObj))
+      return createResponse(data || [])
     }
 
-    // Status endpoints - GET /api/status
-    if (route === '/status' && method === 'GET') {
-      const statusChecks = await db.collection('status_checks')
-        .find({})
-        .limit(1000)
-        .toArray()
-
-      // Remove MongoDB's _id field from response
-      const cleanedStatusChecks = statusChecks.map(({ _id, ...rest }) => rest)
+    // Get specific issue by ID
+    if (path.startsWith('issues/')) {
+      const issueId = path.split('/')[1]
       
-      return handleCORS(NextResponse.json(cleanedStatusChecks))
+      const { data, error } = await supabase
+        .from('issues')
+        .select(`
+          *,
+          users (
+            name,
+            email
+          )
+        `)
+        .eq('id', issueId)
+        .single()
+
+      if (error) {
+        console.error('Error fetching issue:', error)
+        return createResponse({ error: 'Issue not found' }, 404)
+      }
+
+      return createResponse(data)
+    }
+
+    // Get all users (limited info for privacy)
+    if (path === 'users') {
+      const { data, error } = await supabase
+        .from('users')
+        .select('id, name, email, created_at')
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching users:', error)
+        return createResponse({ error: 'Failed to fetch users' }, 500)
+      }
+
+      return createResponse(data || [])
     }
 
     // Route not found
-    return handleCORS(NextResponse.json(
-      { error: `Route ${route} not found` }, 
-      { status: 404 }
-    ))
+    return createResponse({ error: 'Route not found' }, 404)
 
   } catch (error) {
     console.error('API Error:', error)
-    return handleCORS(NextResponse.json(
-      { error: "Internal server error" }, 
-      { status: 500 }
-    ))
+    return createResponse({ 
+      error: 'Internal server error',
+      message: error.message 
+    }, 500)
   }
 }
 
-// Export all HTTP methods
-export const GET = handleRoute
-export const POST = handleRoute
-export const PUT = handleRoute
-export const DELETE = handleRoute
-export const PATCH = handleRoute
+// POST handler
+export async function POST(request) {
+  try {
+    const { pathname } = new URL(request.url)
+    const path = pathname.replace('/api/', '')
+    const body = await request.json()
+
+    // Create new issue
+    if (path === 'issues') {
+      const { 
+        id, 
+        user_id, 
+        description, 
+        category, 
+        location, 
+        coordinates, 
+        image_url 
+      } = body
+
+      if (!description || !category || !location || !user_id) {
+        return createResponse({ 
+          error: 'Missing required fields: description, category, location, user_id' 
+        }, 400)
+      }
+
+      const { data, error } = await supabase
+        .from('issues')
+        .insert([{
+          id: id || `CIV-${Date.now()}-${Math.random().toString(36).substr(2, 5).toUpperCase()}`,
+          user_id,
+          description,
+          category,
+          location,
+          coordinates,
+          image_url,
+          status: 'Submitted'
+        }])
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Error creating issue:', error)
+        return createResponse({ error: 'Failed to create issue' }, 500)
+      }
+
+      return createResponse(data, 201)
+    }
+
+    // Create new user profile
+    if (path === 'users') {
+      const { id, name, email, phone, address, aadhar_number } = body
+
+      if (!id || !name || !email) {
+        return createResponse({ 
+          error: 'Missing required fields: id, name, email' 
+        }, 400)
+      }
+
+      const { data, error } = await supabase
+        .from('users')
+        .insert([{
+          id,
+          name,
+          email,
+          phone,
+          address,
+          aadhar_number
+        }])
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Error creating user:', error)
+        return createResponse({ error: 'Failed to create user' }, 500)
+      }
+
+      return createResponse(data, 201)
+    }
+
+    return createResponse({ error: 'Route not found' }, 404)
+
+  } catch (error) {
+    console.error('POST API Error:', error)
+    return createResponse({ 
+      error: 'Internal server error',
+      message: error.message 
+    }, 500)
+  }
+}
+
+// PUT handler for updates
+export async function PUT(request) {
+  try {
+    const { pathname } = new URL(request.url)
+    const path = pathname.replace('/api/', '')
+    const body = await request.json()
+
+    // Update issue status
+    if (path.startsWith('issues/')) {
+      const issueId = path.split('/')[1]
+      const { status } = body
+
+      if (!status) {
+        return createResponse({ error: 'Status is required' }, 400)
+      }
+
+      const validStatuses = ['Submitted', 'Acknowledged', 'Resolved']
+      if (!validStatuses.includes(status)) {
+        return createResponse({ 
+          error: `Invalid status. Must be one of: ${validStatuses.join(', ')}` 
+        }, 400)
+      }
+
+      const { data, error } = await supabase
+        .from('issues')
+        .update({ 
+          status,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', issueId)
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Error updating issue:', error)
+        return createResponse({ error: 'Failed to update issue' }, 500)
+      }
+
+      return createResponse(data)
+    }
+
+    return createResponse({ error: 'Route not found' }, 404)
+
+  } catch (error) {
+    console.error('PUT API Error:', error)
+    return createResponse({ 
+      error: 'Internal server error',
+      message: error.message 
+    }, 500)
+  }
+}
+
+// DELETE handler
+export async function DELETE(request) {
+  try {
+    const { pathname } = new URL(request.url)
+    const path = pathname.replace('/api/', '')
+
+    // Delete issue (admin only - would need auth check in production)
+    if (path.startsWith('issues/')) {
+      const issueId = path.split('/')[1]
+
+      const { error } = await supabase
+        .from('issues')
+        .delete()
+        .eq('id', issueId)
+
+      if (error) {
+        console.error('Error deleting issue:', error)
+        return createResponse({ error: 'Failed to delete issue' }, 500)
+      }
+
+      return createResponse({ message: 'Issue deleted successfully' })
+    }
+
+    return createResponse({ error: 'Route not found' }, 404)
+
+  } catch (error) {
+    console.error('DELETE API Error:', error)
+    return createResponse({ 
+      error: 'Internal server error',
+      message: error.message 
+    }, 500)
+  }
+}

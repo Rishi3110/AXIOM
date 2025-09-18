@@ -440,30 +440,8 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-primary text-primary-foreground p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Civic Reporter</h1>
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            onClick={() => setActiveTab('report')}
-            className="bg-white text-primary hover:bg-white/90"
-          >
-            + Report
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setActiveTab('profile')}
-            className="hover:bg-primary-foreground/20"
-          >
-            <User className="h-5 w-5" />
-          </Button>
-        </div>
-      </header>
-
-      {/* Main Content */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      {/* Main Content - No header */}
       <div className="pb-20">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsContent value="home" className="p-4 space-y-6">

@@ -1,92 +1,92 @@
 {
   "total_tests": 12,
-  "passed": 0,
-  "failed": 12,
-  "success_rate": "0.0%",
-  "timestamp": "2025-09-18T11:54:16.497817",
+  "passed": 9,
+  "failed": 3,
+  "success_rate": "75.0%",
+  "timestamp": "2025-09-18T11:56:38.880530",
   "test_details": [
     {
       "test": "Root Endpoint",
       "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:11.125124",
+      "message": "HTTP 404: {\"error\":\"Route not found\"}",
+      "timestamp": "2025-09-18T11:56:27.938882",
       "response_data": null
     },
     {
       "test": "Health Endpoint",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:11.633261",
+      "success": true,
+      "message": "Health check passed. Status: healthy",
+      "timestamp": "2025-09-18T11:56:28.461889",
       "response_data": null
     },
     {
       "test": "Get Issues (Empty)",
       "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:12.143698",
+      "message": "HTTP 500: {\"error\":\"Failed to fetch issues\"}",
+      "timestamp": "2025-09-18T11:56:29.888291",
       "response_data": null
     },
     {
       "test": "Get Users (Empty)",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:12.651487",
+      "success": true,
+      "message": "Retrieved 0 users successfully",
+      "timestamp": "2025-09-18T11:56:31.185655",
       "response_data": null
     },
     {
       "test": "Create User",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:13.161649",
+      "success": true,
+      "message": "User created successfully with ID: 841295a5-6c44-4984-854b-cd7778916eb1",
+      "timestamp": "2025-09-18T11:56:32.508383",
       "response_data": null
     },
     {
       "test": "Create Issue",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-09-18T11:54:13.671850",
+      "success": true,
+      "message": "Issue created successfully with ID: CIV-1758196593029-R40EP",
+      "timestamp": "2025-09-18T11:56:33.833455",
       "response_data": null
     },
     {
       "test": "Get Specific Issue",
-      "success": false,
-      "message": "No issue ID available (create issue test failed)",
-      "timestamp": "2025-09-18T11:54:14.171988",
+      "success": true,
+      "message": "Issue retrieved with user data. Status: Submitted",
+      "timestamp": "2025-09-18T11:56:35.169948",
       "response_data": null
     },
     {
       "test": "Update Issue Status",
       "success": false,
-      "message": "No issue ID available (create issue test failed)",
-      "timestamp": "2025-09-18T11:54:14.672119",
+      "message": "HTTP 500: {\"error\":\"Failed to update issue\"}",
+      "timestamp": "2025-09-18T11:56:36.491343",
       "response_data": null
     },
     {
       "test": "CORS Headers",
-      "success": false,
-      "message": "OPTIONS request failed: HTTP 502",
-      "timestamp": "2025-09-18T11:54:15.179451",
+      "success": true,
+      "message": "All required CORS headers present",
+      "timestamp": "2025-09-18T11:56:37.016202",
       "response_data": null
     },
     {
       "test": "Error Handling (404)",
-      "success": false,
-      "message": "Expected 404, got 502",
-      "timestamp": "2025-09-18T11:54:15.783695",
+      "success": true,
+      "message": "Invalid route returns 404 correctly",
+      "timestamp": "2025-09-18T11:56:37.537208",
       "response_data": null
     },
     {
       "test": "Error Handling (Invalid ID)",
-      "success": false,
-      "message": "Expected 404, got 502",
-      "timestamp": "2025-09-18T11:54:15.985733",
+      "success": true,
+      "message": "Invalid issue ID returns 404 correctly",
+      "timestamp": "2025-09-18T11:56:38.362452",
       "response_data": null
     },
     {
       "test": "Error Handling (Missing Fields)",
-      "success": false,
-      "message": "Expected 400, got 502",
-      "timestamp": "2025-09-18T11:54:15.997593",
+      "success": true,
+      "message": "Missing required fields returns 400 correctly",
+      "timestamp": "2025-09-18T11:56:38.380335",
       "response_data": null
     }
   ]

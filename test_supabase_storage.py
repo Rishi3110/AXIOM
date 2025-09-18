@@ -8,6 +8,10 @@ import os
 import requests
 import json
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv('/app/.env')
 
 # Supabase configuration from environment
 SUPABASE_URL = os.getenv('NEXT_PUBLIC_SUPABASE_URL')

@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
-import { Home, List, Search, Map, User, Camera, MapPin, Upload, FileText, Clock, CheckCircle } from "lucide-react"
+import { Home, List, Search, Map, User, Camera, MapPin, Upload, FileText, Clock, CheckCircle, Plus } from "lucide-react"
 import dynamic from 'next/dynamic'
 
 // Dynamic import for Map component to avoid SSR issues

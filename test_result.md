@@ -326,3 +326,5 @@ agent_communication:
     message: "UI navigation and design enhancements completed. Removed top bar, added Report icon to bottom navigation, applied rounded corners and gradients throughout. Need to create Supabase storage bucket before frontend testing."
   - agent: "main"
     message: "Personalized issues view implemented. Issues tab now shows only user's own issues. Added community overview statistics to home screen showing total, active, in-progress, and resolved issues from all users."
+  - agent: "testing"
+    message: "Enhanced backend testing completed. 6/8 test suites passed (75% success rate). CRITICAL FINDINGS: 1) Personalized Issues API NOT implemented in backend - GET /api/issues returns ALL issues, not filtered by user_id. 2) Overall Statistics API NOT implemented - no dedicated statistics endpoints exist. Both features appear to be handled on frontend. Core functionality, image upload, and Supabase integration working correctly."

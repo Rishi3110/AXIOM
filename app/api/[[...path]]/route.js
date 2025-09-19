@@ -282,10 +282,10 @@ export async function PUT(request) {
     const path = pathname.replace('/api/', '')
     const body = await request.json()
 
-    // Update issue status
+    // Update issue status and admin fields
     if (path.startsWith('issues/')) {
       const issueId = path.split('/')[1]
-      const { status } = body
+      const { status, assigned_department, admin_remarks } = body
 
       if (!status) {
         return createResponse({ error: 'Status is required' }, 400)
@@ -298,11 +298,22 @@ export async function PUT(request) {
         }, 400)
       }
 
+      const updateData = { 
+        status,
+        updated_at: new Date().toISOString()
+      }
+
+      // Include admin fields if provided
+      if (assigned_department !== undefined) {
+        updateData.assigned_department = assigned_department
+      }
+      if (admin_remarks !== undefined) {
+        updateData.admin_remarks = admin_remarks
+      }
+
       const { data, error } = await supabase
         .from('issues')
-        .update({ 
-          status
-        })
+        .update(updateData)
         .eq('id', issueId)
         .select()
         .single()

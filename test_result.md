@@ -372,10 +372,12 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Frontend Integration Testing"
-    - "End-to-End Functionality Verification"
+    - "Database Schema Updates for Admin Dashboard"
+    - "Admin Dashboard Backend API Testing"
   stuck_tasks:
     - "Supabase Storage Configuration"
+    - "Department Management API"
+    - "Admin Fields in Issues API"
   test_all: false
   test_priority: "high_first"
 
@@ -390,3 +392,5 @@ agent_communication:
     message: "Fixed image upload functionality by implementing base64 encoding solution. Eliminates Supabase storage bucket dependency. Added file validation (5MB limit, image files only). Image submission now works properly and stores images as base64 strings in database."
   - agent: "testing"
     message: "Enhanced backend testing completed. 6/8 test suites passed (75% success rate). CRITICAL FINDINGS: 1) Personalized Issues API NOT implemented in backend - GET /api/issues returns ALL issues, not filtered by user_id. 2) Overall Statistics API NOT implemented - no dedicated statistics endpoints exist. Both features appear to be handled on frontend. Core functionality, image upload, and Supabase integration working correctly."
+  - agent: "testing"
+    message: "Admin Dashboard Backend API Testing completed. 8/14 admin tests passed (57.1% success rate). CRITICAL DATABASE SCHEMA ISSUES: 1) 'departments' table missing from Supabase - need to create with columns: id, name, description, contact_email, contact_phone, active, created_at, updated_at. 2) 'issues' table missing admin columns: 'admin_remarks' and 'assigned_department'. Backend API code is correctly implemented but database schema needs updates. Existing core functionality (88.2% success rate) remains stable."

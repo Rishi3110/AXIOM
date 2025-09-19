@@ -54,7 +54,7 @@ After running the SQL, test the API endpoints:
 
 ```bash
 # Test departments API
-curl https://civic-dashboard-1.preview.emergentagent.com/api/departments
+curl https://admin-dash-fix-2.preview.emergentagent.com/api/departments
 
 # Should return the 4 default departments
 ```

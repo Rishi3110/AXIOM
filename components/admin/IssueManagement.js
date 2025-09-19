@@ -287,7 +287,6 @@ export default function IssueManagement({ onRefresh }) {
                   <SelectValue placeholder="All departments" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All departments</SelectItem>
                   {departments.map(dept => (
                     <SelectItem key={dept.id} value={dept.name}>{dept.name}</SelectItem>
                   ))}

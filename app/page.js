@@ -174,6 +174,8 @@ export default function App() {
         await loadUserProfile(data.user.id)
         setActiveTab('home')
         toast.success('Welcome back!')
+        // Load user's issues after login
+        await loadUserIssues()
       } else {
         // Sign up
         const { data, error } = await supabase.auth.signUp({

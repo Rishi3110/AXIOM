@@ -3,125 +3,125 @@
   "passed": 15,
   "failed": 2,
   "success_rate": "88.2%",
-  "timestamp": "2025-09-19T09:13:59.378448",
+  "timestamp": "2025-09-19T16:06:48.509688",
   "test_details": [
     {
       "test": "Root Endpoint",
       "success": false,
       "message": "HTTP 404: {\"error\":\"Route not found\"}",
-      "timestamp": "2025-09-19T09:13:42.312588",
+      "timestamp": "2025-09-19T16:06:27.140068",
       "response_data": null
     },
     {
       "test": "Health Endpoint",
       "success": true,
       "message": "Health check passed. Status: healthy",
-      "timestamp": "2025-09-19T09:13:42.841550",
+      "timestamp": "2025-09-19T16:06:27.685073",
       "response_data": null
     },
     {
       "test": "Get Issues (Empty)",
       "success": true,
-      "message": "Retrieved 6 issues successfully",
-      "timestamp": "2025-09-19T09:13:44.336645",
+      "message": "Retrieved 24 issues successfully",
+      "timestamp": "2025-09-19T16:06:29.936241",
       "response_data": null
     },
     {
       "test": "Get Users (Empty)",
       "success": true,
-      "message": "Retrieved 7 users successfully",
-      "timestamp": "2025-09-19T09:13:45.752415",
+      "message": "Retrieved 17 users successfully",
+      "timestamp": "2025-09-19T16:06:31.335610",
       "response_data": null
     },
     {
       "test": "Create User",
       "success": true,
-      "message": "User created successfully with ID: d25b1e9f-3374-48b6-8d7e-4c02adbdd1e7",
-      "timestamp": "2025-09-19T09:13:47.158064",
+      "message": "User created successfully with ID: aa902db0-2629-4389-95d5-23578e245781",
+      "timestamp": "2025-09-19T16:06:32.722635",
       "response_data": null
     },
     {
       "test": "Create Issue",
       "success": true,
-      "message": "Issue created successfully with ID: CIV-1758273227682-T3BGJ",
-      "timestamp": "2025-09-19T09:13:48.605550",
+      "message": "Issue created successfully with ID: CIV-1758297993258-3GQHM",
+      "timestamp": "2025-09-19T16:06:34.130366",
       "response_data": null
     },
     {
       "test": "Create Issue with Image",
       "success": true,
-      "message": "Issue with image created successfully. ID: CIV-1758273229129-GNGP1",
-      "timestamp": "2025-09-19T09:13:49.472059",
+      "message": "Issue with image created successfully. ID: CIV-1758297994670-GG1EL",
+      "timestamp": "2025-09-19T16:06:34.988158",
       "response_data": null
     },
     {
       "test": "Create Issue without Image",
       "success": true,
-      "message": "Issue without image created successfully. ID: CIV-1758273229997-HJTTB",
-      "timestamp": "2025-09-19T09:13:50.843056",
+      "message": "Issue without image created successfully. ID: CIV-1758297995522-FUGZA",
+      "timestamp": "2025-09-19T16:06:36.348415",
       "response_data": null
     },
     {
       "test": "Get Specific Issue",
       "success": true,
       "message": "Issue retrieved with user data. Status: Submitted",
-      "timestamp": "2025-09-19T09:13:52.207286",
+      "timestamp": "2025-09-19T16:06:37.703558",
       "response_data": null
     },
     {
       "test": "Update Issue Status",
       "success": true,
       "message": "Issue status updated to: Acknowledged",
-      "timestamp": "2025-09-19T09:13:53.580414",
+      "timestamp": "2025-09-19T16:06:39.109624",
       "response_data": null
     },
     {
       "test": "Image URL Storage/Retrieval",
       "success": true,
       "message": "Image URL properly stored and retrieved: https://example.com/test-image.jpg",
-      "timestamp": "2025-09-19T09:13:55.007205",
+      "timestamp": "2025-09-19T16:06:39.976354",
       "response_data": null
     },
     {
       "test": "Backward Compatibility",
       "success": false,
       "message": "Endpoint / failed with status 404",
-      "timestamp": "2025-09-19T09:13:55.534350",
+      "timestamp": "2025-09-19T16:06:44.876613",
       "response_data": null
     },
     {
       "test": "Enhanced Error Handling",
       "success": true,
       "message": "Error handling working correctly for various scenarios",
-      "timestamp": "2025-09-19T09:13:56.964053",
+      "timestamp": "2025-09-19T16:06:46.078540",
       "response_data": null
     },
     {
       "test": "CORS Headers",
       "success": true,
       "message": "All required CORS headers present",
-      "timestamp": "2025-09-19T09:13:57.488841",
+      "timestamp": "2025-09-19T16:06:46.616270",
       "response_data": null
     },
     {
       "test": "Error Handling (404)",
       "success": true,
       "message": "Invalid route returns 404 correctly",
-      "timestamp": "2025-09-19T09:13:58.015345",
+      "timestamp": "2025-09-19T16:06:47.157461",
       "response_data": null
     },
     {
       "test": "Error Handling (Invalid ID)",
       "success": true,
       "message": "Invalid issue ID returns 404 correctly",
-      "timestamp": "2025-09-19T09:13:58.855005",
+      "timestamp": "2025-09-19T16:06:47.969643",
       "response_data": null
     },
     {
       "test": "Error Handling (Missing Fields)",
       "success": true,
       "message": "Missing required fields returns 400 correctly",
-      "timestamp": "2025-09-19T09:13:58.878220",
+      "timestamp": "2025-09-19T16:06:48.009492",
       "response_data": null
     }
   ]

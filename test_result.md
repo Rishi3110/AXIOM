@@ -191,6 +191,30 @@ backend:
       - working: false
         agent: "main"
         comment: "Need to research and create Supabase storage bucket configuration for image uploads."
+
+  - task: "Personalized Issues Backend API"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Implemented GET /api/issues?user_id=ID for personalized issue filtering and GET /api/users/USER_ID/issues endpoint. Both work correctly with proper error handling."
+
+  - task: "Community Statistics Backend API"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Implemented GET /api/stats endpoint that returns aggregated community statistics (total, submitted, acknowledged, resolved, active, in_progress counts)."
       - working: false
         agent: "testing"
         comment: "Infrastructure issue - storage bucket needs to be created in Supabase dashboard. Backend API handles image_url field correctly with graceful fallbacks."

@@ -56,9 +56,12 @@ export async function GET(request) {
       })
     }
 
-    // Get all issues
+    // Get all issues (with optional user_id filter for personalization)
     if (path === 'issues') {
-      const { data, error } = await supabase
+      const { searchParams } = new URL(request.url)
+      const userId = searchParams.get('user_id')
+      
+      let query = supabase
         .from('issues')
         .select(`
           *,
@@ -68,9 +71,63 @@ export async function GET(request) {
           )
         `)
 
+      // If user_id is provided, filter by user_id for personalized view
+      if (userId) {
+        query = query.eq('user_id', userId)
+      }
+
+      const { data, error } = await query.order('created_at', { ascending: false })
+
       if (error) {
         console.error('Error fetching issues:', error)
         return createResponse({ error: 'Failed to fetch issues' }, 500)
+      }
+
+      return createResponse(data || [])
+    }
+
+    // Get community statistics
+    if (path === 'stats' || path === 'statistics') {
+      const { data, error } = await supabase
+        .from('issues')
+        .select('status')
+
+      if (error) {
+        console.error('Error fetching statistics:', error)
+        return createResponse({ error: 'Failed to fetch statistics' }, 500)
+      }
+
+      const stats = {
+        total: data?.length || 0,
+        submitted: data?.filter(i => i.status === 'Submitted').length || 0,
+        acknowledged: data?.filter(i => i.status === 'Acknowledged').length || 0,
+        resolved: data?.filter(i => i.status === 'Resolved').length || 0,
+        active: data?.filter(i => i.status === 'Submitted').length || 0,
+        in_progress: data?.filter(i => i.status === 'Acknowledged').length || 0
+      }
+
+      return createResponse(stats)
+    }
+
+    // Get issues for specific user
+    if (path.startsWith('users/') && path.includes('/issues')) {
+      const userId = path.split('/')[1]
+      
+      const { data, error } = await supabase
+        .from('issues')
+        .select(`
+          *,
+          users (
+            name,
+            email
+          )
+        `)
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+
+      if (error) {
+        console.error('Error fetching user issues:', error)
+        return createResponse({ error: 'Failed to fetch user issues' }, 500)
       }
 
       return createResponse(data || [])

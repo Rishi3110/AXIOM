@@ -273,6 +273,15 @@ export default function App() {
     }
   }
 
+  const convertFileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = error => reject(error)
+    })
+  }
+
   const submitIssue = async (e) => {
     e.preventDefault()
     if (!issueForm.description || !issueForm.category || !issueForm.location) {
@@ -287,44 +296,19 @@ export default function App() {
       
       let imageUrl = null
       
-      // Upload image if selected
+      // Process image if selected
       if (selectedFile) {
         try {
-          const fileExt = selectedFile.name.split('.').pop()
-          const fileName = `${issueId}.${fileExt}`
+          console.log('Processing image:', selectedFile.name, 'Size:', selectedFile.size)
           
-          console.log('Uploading file:', fileName, 'Size:', selectedFile.size)
-          
-          const { data: uploadData, error: uploadError } = await supabase.storage
-            .from('issue-photos')
-            .upload(fileName, selectedFile, {
-              cacheControl: '3600',
-              upsert: false
-            })
-          
-          if (uploadError) {
-            console.error('Upload error:', uploadError)
-            // If bucket doesn't exist, try to create it
-            if (uploadError.message.includes('not found') || uploadError.message.includes('does not exist')) {
-              toast.error('Storage bucket not found. Please check Supabase storage configuration.')
-            } else {
-              toast.error('Failed to upload image: ' + uploadError.message)
-            }
-            throw uploadError
-          }
-          
-          console.log('Upload successful:', uploadData)
-          
-          // Get public URL
-          const { data: { publicUrl } } = supabase.storage
-            .from('issue-photos')
-            .getPublicUrl(fileName)
-          
-          imageUrl = publicUrl
-          console.log('Public URL:', imageUrl)
-        } catch (uploadError) {
-          console.error('Image upload failed:', uploadError)
-          toast.error('Image upload failed. Proceeding without image.')
+          // Convert image to base64 for storage
+          const base64Image = await convertFileToBase64(selectedFile)
+          imageUrl = base64Image
+          console.log('Image converted to base64 successfully')
+          toast.success('Image processed successfully')
+        } catch (imageError) {
+          console.error('Image processing failed:', imageError)
+          toast.error('Image processing failed. Proceeding without image.')
           // Continue without image instead of failing completely
         }
       }
@@ -355,6 +339,10 @@ export default function App() {
         coordinates: null
       })
       setSelectedFile(null)
+      
+      // Clear file input
+      const fileInput = document.getElementById('photo')
+      if (fileInput) fileInput.value = ''
       
       // Reload issues and stats
       await loadUserIssues()

@@ -32,6 +32,8 @@ if (typeof window !== 'undefined') {
 
 // Custom icon for different issue types
 const createCustomIcon = (percentage, color) => {
+  if (typeof window === 'undefined' || !L) return null
+  
   const size = Math.max(20, Math.min(50, 20 + (percentage * 30 / 100)))
   return L.divIcon({
     html: `<div style="background-color: ${color}; width: ${size}px; height: ${size}px; border-radius: 50%; border: 3px solid white; box-shadow: 0 3px 6px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; color: white;">${Math.round(percentage)}%</div>`,

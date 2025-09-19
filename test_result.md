@@ -117,6 +117,42 @@ backend:
         agent: "testing"
         comment: "GET /api/health endpoint working correctly. Returns proper JSON with status, timestamp, and database connection status."
 
+  - task: "Department Management API"
+    implemented: true
+    working: false
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: Department API endpoints (GET/POST /api/departments) implemented in code but failing with 500 errors. Database schema missing - 'public.departments' table does not exist in Supabase. Need to create departments table with columns: id, name, description, contact_email, contact_phone, active, created_at, updated_at."
+
+  - task: "Admin Fields in Issues API"
+    implemented: true
+    working: false
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: Admin fields (assigned_department, admin_remarks) implemented in PUT /api/issues/{id} code but failing with 500 errors. Database schema missing - 'admin_remarks' and 'assigned_department' columns do not exist in issues table. Need to add these columns to issues table."
+
+  - task: "Enhanced Issues API with User Filtering"
+    implemented: true
+    working: true
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "GET /api/issues?user_id=ID parameter filtering working correctly. Returns only issues for specified user. Existing issues API functionality maintained."
+
   - task: "Get All Issues Endpoint"
     implemented: true
     working: true

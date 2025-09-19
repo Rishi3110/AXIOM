@@ -326,7 +326,7 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Added community overview section showing total, active, in-progress, and resolved issues from all users. Added loadAllIssuesStats function to fetch overall statistics."
+        comment: "Added community overview section showing total, active, in-progress, and resolved issues from all users. Updated to use new backend /api/stats endpoint for better performance."
 
 metadata:
   created_by: "main_agent"

@@ -783,7 +783,7 @@ export default function App() {
                             className="w-full h-48 object-cover rounded-xl shadow-md hover:shadow-lg transition-all duration-200"
                             onError={(e) => {
                               e.target.style.display = 'none'
-                              console.error('Failed to load image:', issue.image_url)
+                              console.error('Failed to load image for issue:', issue.id)
                             }}
                           />
                         </div>

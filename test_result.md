@@ -253,6 +253,30 @@ frontend:
         agent: "main"
         comment: "Improved image upload interface with better styling, success indicators, and error handling display."
 
+  - task: "Personalized Issues View"
+    implemented: true
+    working: true
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Modified Issues tab to show only user's own issues instead of all issues. Updated loadUserIssues function to filter by user_id."
+
+  - task: "Community Statistics on Home Screen"
+    implemented: true
+    working: true
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added community overview section showing total, active, in-progress, and resolved issues from all users. Added loadAllIssuesStats function to fetch overall statistics."
+
 metadata:
   created_by: "main_agent"
   version: "2.0"

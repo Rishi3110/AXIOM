@@ -273,3 +273,5 @@ agent_communication:
     message: "Backend API testing completed. 13/15 tests passing (86.7% success rate). All core functionality working correctly including enhanced image upload support. Main issue: 'issue-photos' storage bucket needs to be created in Supabase."
   - agent: "main"
     message: "UI navigation and design enhancements completed. Removed top bar, added Report icon to bottom navigation, applied rounded corners and gradients throughout. Need to create Supabase storage bucket before frontend testing."
+  - agent: "main"
+    message: "Personalized issues view implemented. Issues tab now shows only user's own issues. Added community overview statistics to home screen showing total, active, in-progress, and resolved issues from all users."

@@ -119,17 +119,41 @@ export default function App() {
     }
   }
 
-  const loadIssues = async () => {
+  const loadUserIssues = async () => {
+    if (!user) return
+    
     try {
       const { data, error } = await supabase
         .from('issues')
         .select('*')
+        .eq('user_id', user.id)
         .order('created_at', { ascending: false })
       
       if (error) throw error
       setIssues(data || [])
     } catch (error) {
-      console.error('Failed to load issues:', error)
+      console.error('Failed to load user issues:', error)
+    }
+  }
+
+  const loadAllIssuesStats = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('issues')
+        .select('status')
+      
+      if (error) throw error
+      
+      const stats = {
+        total: data?.length || 0,
+        submitted: data?.filter(i => i.status === ISSUE_STATUSES.SUBMITTED).length || 0,
+        acknowledged: data?.filter(i => i.status === ISSUE_STATUSES.ACKNOWLEDGED).length || 0,
+        resolved: data?.filter(i => i.status === ISSUE_STATUSES.RESOLVED).length || 0
+      }
+      
+      setAllIssuesStats(stats)
+    } catch (error) {
+      console.error('Failed to load all issues stats:', error)
     }
   }
 

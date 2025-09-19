@@ -121,18 +121,18 @@ export default function IssueManagement({ onRefresh }) {
       )
     }
 
-    // Status filter
-    if (filters.status) {
+    // Status filter - only filter if a specific status is selected
+    if (filters.status && ISSUE_STATUSES.includes(filters.status)) {
       filtered = filtered.filter(issue => issue.status === filters.status)
     }
 
-    // Category filter
-    if (filters.category) {
+    // Category filter - only filter if a specific category is selected
+    if (filters.category && ISSUE_CATEGORIES.includes(filters.category)) {
       filtered = filtered.filter(issue => issue.category === filters.category)
     }
 
-    // Department filter
-    if (filters.department) {
+    // Department filter - only filter if a specific department is selected
+    if (filters.department && departments.some(dept => dept.name === filters.department)) {
       filtered = filtered.filter(issue => issue.assigned_department === filters.department)
     }
 

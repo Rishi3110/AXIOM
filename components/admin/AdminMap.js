@@ -271,86 +271,100 @@ export default function AdminMap() {
       {/* Map */}
       <Card>
         <CardContent className="p-0">
-          <div className="h-96 rounded-lg overflow-hidden">
-            <MapContainer
-              center={mapCenter}
-              zoom={10}
-              style={{ height: '100%', width: '100%' }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              
-              {/* Area markers showing percentages */}
-              {areaData.map((area, index) => (
-                <Marker
-                  key={`area-${index}`}
-                  position={[area.coordinates.lat, area.coordinates.lng]}
-                  icon={createCustomIcon(
+          <div className="h-96 rounded-lg overflow-hidden bg-slate-100 flex items-center justify-center">
+            {typeof window !== 'undefined' && MapContainer && TileLayer ? (
+              <MapContainer
+                center={mapCenter}
+                zoom={10}
+                style={{ height: '100%', width: '100%' }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                
+                {/* Area markers showing percentages */}
+                {areaData.map((area, index) => {
+                  const icon = createCustomIcon(
                     getAreaPercentage(area, selectedStatus),
                     getAreaColor(area, selectedStatus)
-                  )}
-                >
-                  <Popup className="custom-popup" maxWidth={300}>
-                    <div className="p-3">
-                      <h3 className="font-bold text-lg mb-3">{area.area}</h3>
-                      
-                      <div className="grid grid-cols-2 gap-3 mb-3">
-                        <div className="text-center bg-slate-50 rounded p-2">
-                          <div className="text-2xl font-bold text-slate-800">{area.total}</div>
-                          <div className="text-xs text-slate-600">Total Issues</div>
-                        </div>
-                        <div className="text-center bg-green-50 rounded p-2">
-                          <div className="text-2xl font-bold text-green-600">
-                            {Math.round(area.resolvedPercentage)}%
+                  )
+                  
+                  return icon && Marker && Popup ? (
+                    <Marker
+                      key={`area-${index}`}
+                      position={[area.coordinates.lat, area.coordinates.lng]}
+                      icon={icon}
+                    >
+                      <Popup className="custom-popup" maxWidth={300}>
+                        <div className="p-3">
+                          <h3 className="font-bold text-lg mb-3">{area.area}</h3>
+                          
+                          <div className="grid grid-cols-2 gap-3 mb-3">
+                            <div className="text-center bg-slate-50 rounded p-2">
+                              <div className="text-2xl font-bold text-slate-800">{area.total}</div>
+                              <div className="text-xs text-slate-600">Total Issues</div>
+                            </div>
+                            <div className="text-center bg-green-50 rounded p-2">
+                              <div className="text-2xl font-bold text-green-600">
+                                {Math.round(area.resolvedPercentage)}%
+                              </div>
+                              <div className="text-xs text-slate-600">Resolved</div>
+                            </div>
                           </div>
-                          <div className="text-xs text-slate-600">Resolved</div>
-                        </div>
-                      </div>
 
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">Submitted:</span>
-                          <div className="flex items-center gap-2">
-                            <div className="text-sm font-medium">{area.submitted}</div>
-                            <Badge className="bg-yellow-500 text-white text-xs">
-                              {Math.round(area.submittedPercentage)}%
-                            </Badge>
+                          <div className="space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">Submitted:</span>
+                              <div className="flex items-center gap-2">
+                                <div className="text-sm font-medium">{area.submitted}</div>
+                                <div className="bg-yellow-500 text-white text-xs px-2 py-1 rounded">
+                                  {Math.round(area.submittedPercentage)}%
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">Acknowledged:</span>
+                              <div className="flex items-center gap-2">
+                                <div className="text-sm font-medium">{area.acknowledged}</div>
+                                <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded">
+                                  {Math.round(area.acknowledgedPercentage)}%
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm">Resolved:</span>
+                              <div className="flex items-center gap-2">
+                                <div className="text-sm font-medium">{area.resolved}</div>
+                                <div className="bg-green-500 text-white text-xs px-2 py-1 rounded">
+                                  {Math.round(area.resolvedPercentage)}%
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">Acknowledged:</span>
-                          <div className="flex items-center gap-2">
-                            <div className="text-sm font-medium">{area.acknowledged}</div>
-                            <Badge className="bg-blue-500 text-white text-xs">
-                              {Math.round(area.acknowledgedPercentage)}%
-                            </Badge>
-                          </div>
-                        </div>
-                        
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm">Resolved:</span>
-                          <div className="flex items-center gap-2">
-                            <div className="text-sm font-medium">{area.resolved}</div>
-                            <Badge className="bg-green-500 text-white text-xs">
-                              {Math.round(area.resolvedPercentage)}%
-                            </Badge>
-                          </div>
-                        </div>
-                      </div>
 
-                      <div className="mt-3 pt-3 border-t border-slate-200">
-                        <p className="text-xs text-slate-500">
-                          Click area name to view detailed issues
-                        </p>
-                      </div>
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
+                          <div className="mt-3 pt-3 border-t border-slate-200">
+                            <p className="text-xs text-slate-500">
+                              Click area name to view detailed issues
+                            </p>
+                          </div>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ) : null
+                })}
+              </MapContainer>
+            ) : (
+              <div className="text-center">
+                <div className="text-slate-500 mb-2">Interactive Map</div>
+                <div className="text-sm text-slate-400">Map is loading...</div>
+                <div className="mt-4 text-xs text-slate-400">
+                  {areaData.length} areas with location data available
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

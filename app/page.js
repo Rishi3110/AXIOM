@@ -43,6 +43,12 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('login')
   const [issues, setIssues] = useState([])
   const [userProfile, setUserProfile] = useState(null)
+  const [allIssuesStats, setAllIssuesStats] = useState({
+    total: 0,
+    submitted: 0,
+    acknowledged: 0,
+    resolved: 0
+  })
 
   // Auth form states
   const [isLogin, setIsLogin] = useState(true)
@@ -66,7 +72,7 @@ export default function App() {
   const [trackingId, setTrackingId] = useState('')
   const [trackedIssue, setTrackedIssue] = useState(null)
 
-  // Dashboard counters
+  // Personal dashboard counters (user's own issues)
   const totalIssues = issues.length
   const submittedCount = issues.filter(i => i.status === ISSUE_STATUSES.SUBMITTED).length
   const acknowledgedCount = issues.filter(i => i.status === ISSUE_STATUSES.ACKNOWLEDGED).length

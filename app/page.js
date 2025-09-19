@@ -336,8 +336,9 @@ export default function App() {
       })
       setSelectedFile(null)
       
-      // Reload issues
-      await loadIssues()
+      // Reload issues and stats
+      await loadUserIssues()
+      await loadAllIssuesStats()
       
       toast.success(`Issue submitted successfully! Issue ID: ${issueId}`)
     } catch (error) {

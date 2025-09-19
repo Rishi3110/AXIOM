@@ -336,8 +336,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Personalized Issues API Backend"
-    - "Overall Statistics API Backend"
+    - "Frontend Integration Testing"
+    - "End-to-End Functionality Verification"
   stuck_tasks:
     - "Supabase Storage Configuration"
   test_all: false

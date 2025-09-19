@@ -39,9 +39,11 @@ export async function GET(request) {
       return createResponse({ 
         message: 'Civic Reporter API is running!',
         endpoints: {
-          '/api/issues': 'Get all issues',
+          '/api/issues': 'Get all issues (add ?user_id=ID for personal issues)',
           '/api/issues/[id]': 'Get specific issue',
           '/api/users': 'Get all users',
+          '/api/users/[id]/issues': 'Get issues for specific user',
+          '/api/stats': 'Get community statistics',
           '/api/health': 'Health check'
         }
       })

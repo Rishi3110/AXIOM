@@ -316,7 +316,7 @@ frontend:
         agent: "main"
         comment: "Modified Issues tab to show only user's own issues instead of all issues. Updated loadUserIssues function to filter by user_id. Updated frontend to use new backend API endpoints."
 
-  - task: "Community Statistics on Home Screen"
+  - task: "Image Upload Fix - Base64 Solution"
     implemented: true
     working: true
     file: "/app/app/page.js"
@@ -326,7 +326,7 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Added community overview section showing total, active, in-progress, and resolved issues from all users. Updated to use new backend /api/stats endpoint for better performance."
+        comment: "Fixed image upload by implementing base64 encoding solution. Eliminates dependency on Supabase storage bucket. Added file size validation (5MB limit) and file type validation. Images are now stored as base64 strings directly in database."
 
 metadata:
   created_by: "main_agent"

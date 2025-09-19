@@ -938,7 +938,7 @@ export default function App() {
             className="flex-col h-auto py-2 rounded-xl transition-all duration-200 hover:scale-105"
           >
             <List className="h-5 w-5 mb-1" />
-            <span className="text-xs">Issues</span>
+            <span className="text-xs">My Issues</span>
           </Button>
           <Button
             variant={activeTab === 'track' ? 'default' : 'ghost'}

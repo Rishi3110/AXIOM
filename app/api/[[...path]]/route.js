@@ -279,6 +279,36 @@ export async function POST(request) {
       return createResponse(data, 201)
     }
 
+    // Create new department
+    if (path === 'departments') {
+      const { name, description, contact_email, contact_phone, active } = body
+
+      if (!name) {
+        return createResponse({ 
+          error: 'Missing required field: name' 
+        }, 400)
+      }
+
+      const { data, error } = await supabase
+        .from('departments')
+        .insert([{
+          name,
+          description,
+          contact_email,
+          contact_phone,
+          active: active ?? true
+        }])
+        .select()
+        .single()
+
+      if (error) {
+        console.error('Error creating department:', error)
+        return createResponse({ error: 'Failed to create department' }, 500)
+      }
+
+      return createResponse(data, 201)
+    }
+
     return createResponse({ error: 'Route not found' }, 404)
 
   } catch (error) {

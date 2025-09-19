@@ -314,7 +314,7 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Modified Issues tab to show only user's own issues instead of all issues. Updated loadUserIssues function to filter by user_id."
+        comment: "Modified Issues tab to show only user's own issues instead of all issues. Updated loadUserIssues function to filter by user_id. Updated frontend to use new backend API endpoints."
 
   - task: "Community Statistics on Home Screen"
     implemented: true

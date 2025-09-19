@@ -173,6 +173,21 @@ export async function GET(request) {
       return createResponse(data || [])
     }
 
+    // Get all departments
+    if (path === 'departments') {
+      const { data, error } = await supabase
+        .from('departments')
+        .select('*')
+        .order('name')
+
+      if (error) {
+        console.error('Error fetching departments:', error)
+        return createResponse({ error: 'Failed to fetch departments' }, 500)
+      }
+
+      return createResponse(data || [])
+    }
+
     // Route not found
     return createResponse({ error: 'Route not found' }, 404)
 

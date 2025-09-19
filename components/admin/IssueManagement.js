@@ -259,7 +259,7 @@ export default function IssueManagement({ onRefresh }) {
                   <SelectValue placeholder="All statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All statuses</SelectItem>
+                  <SelectItem value="all">All statuses</SelectItem>
                   {ISSUE_STATUSES.map(status => (
                     <SelectItem key={status} value={status}>{status}</SelectItem>
                   ))}

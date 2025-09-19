@@ -138,20 +138,28 @@ export default function App() {
 
   const loadAllIssuesStats = async () => {
     try {
-      const { data, error } = await supabase
-        .from('issues')
-        .select('status')
-      
-      if (error) throw error
-      
-      const stats = {
-        total: data?.length || 0,
-        submitted: data?.filter(i => i.status === ISSUE_STATUSES.SUBMITTED).length || 0,
-        acknowledged: data?.filter(i => i.status === ISSUE_STATUSES.ACKNOWLEDGED).length || 0,
-        resolved: data?.filter(i => i.status === ISSUE_STATUSES.RESOLVED).length || 0
+      // Use the new backend statistics API endpoint
+      const response = await fetch('/api/stats')
+      if (response.ok) {
+        const stats = await response.json()
+        setAllIssuesStats(stats)
+      } else {
+        // Fallback to direct Supabase query if API fails
+        const { data, error } = await supabase
+          .from('issues')
+          .select('status')
+        
+        if (error) throw error
+        
+        const stats = {
+          total: data?.length || 0,
+          submitted: data?.filter(i => i.status === ISSUE_STATUSES.SUBMITTED).length || 0,
+          acknowledged: data?.filter(i => i.status === ISSUE_STATUSES.ACKNOWLEDGED).length || 0,
+          resolved: data?.filter(i => i.status === ISSUE_STATUSES.RESOLVED).length || 0
+        }
+        
+        setAllIssuesStats(stats)
       }
-      
-      setAllIssuesStats(stats)
     } catch (error) {
       console.error('Failed to load all issues stats:', error)
     }

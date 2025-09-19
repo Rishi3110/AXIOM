@@ -20,8 +20,14 @@ import {
 } from "lucide-react"
 import DashboardOverview from './DashboardOverview'
 import IssueManagement from './IssueManagement'
-import AdminMap from './AdminMap'
 import DepartmentSettings from './DepartmentSettings'
+import dynamic from 'next/dynamic'
+
+// Dynamic import for AdminMap to avoid SSR issues
+const AdminMap = dynamic(() => import('./AdminMap'), { 
+  ssr: false,
+  loading: () => <div className="flex items-center justify-center py-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>
+})
 
 export default function AdminDashboard({ onSignOut }) {
   const [activeTab, setActiveTab] = useState('overview')

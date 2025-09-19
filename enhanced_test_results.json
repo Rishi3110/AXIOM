@@ -1,0 +1,95 @@
+{
+  "total_tests": 12,
+  "passed": 10,
+  "failed": 2,
+  "success_rate": "83.3%",
+  "timestamp": "2025-09-19T09:16:04.639302",
+  "test_users_created": 3,
+  "test_issues_created": 6,
+  "test_details": [
+    {
+      "test": "Core Functionality - Health Check",
+      "success": true,
+      "message": "Endpoint working correctly: 200",
+      "timestamp": "2025-09-19T09:15:52.103799",
+      "response_data": null
+    },
+    {
+      "test": "Core Functionality - Get All Issues",
+      "success": true,
+      "message": "Endpoint working correctly: 200",
+      "timestamp": "2025-09-19T09:15:52.403388",
+      "response_data": null
+    },
+    {
+      "test": "Core Functionality - Get All Users",
+      "success": true,
+      "message": "Endpoint working correctly: 200",
+      "timestamp": "2025-09-19T09:15:53.209561",
+      "response_data": null
+    },
+    {
+      "test": "User Profile Management",
+      "success": true,
+      "message": "User profile created successfully: Profile Test User",
+      "timestamp": "2025-09-19T09:15:54.552762",
+      "response_data": null
+    },
+    {
+      "test": "Supabase Integration",
+      "success": true,
+      "message": "Supabase integration working correctly with foreign key relationships",
+      "timestamp": "2025-09-19T09:15:57.116971",
+      "response_data": null
+    },
+    {
+      "test": "Enhanced Image Upload - Create with Image",
+      "success": true,
+      "message": "Issue created with image URL: https://example.com/enhanced-test-image.jpg",
+      "timestamp": "2025-09-19T09:15:57.942132",
+      "response_data": null
+    },
+    {
+      "test": "Enhanced Image Upload - Create without Image",
+      "success": true,
+      "message": "Issue created successfully without image (graceful fallback)",
+      "timestamp": "2025-09-19T09:15:58.236969",
+      "response_data": null
+    },
+    {
+      "test": "Enhanced Image Upload - Retrieval",
+      "success": true,
+      "message": "Image URL properly retrieved (None for issue without image)",
+      "timestamp": "2025-09-19T09:15:59.069105",
+      "response_data": null
+    },
+    {
+      "test": "Personalized Issues API",
+      "success": false,
+      "message": "GET /api/issues returns ALL issues (18) instead of user-specific issues (4). Personalization not implemented.",
+      "timestamp": "2025-09-19T09:16:01.007950",
+      "response_data": null
+    },
+    {
+      "test": "Overall Statistics API",
+      "success": false,
+      "message": "No dedicated statistics endpoint found. Manual calculation from /api/issues: {\n  \"total\": 18,\n  \"submitted\": 11,\n  \"acknowledged\": 7,\n  \"resolved\": 0\n}",
+      "timestamp": "2025-09-19T09:16:02.737235",
+      "response_data": null
+    },
+    {
+      "test": "Error Handling Edge Cases",
+      "success": true,
+      "message": "All error handling tests passed",
+      "timestamp": "2025-09-19T09:16:03.614492",
+      "response_data": null
+    },
+    {
+      "test": "CORS Headers Comprehensive",
+      "success": true,
+      "message": "All required CORS headers present",
+      "timestamp": "2025-09-19T09:16:04.139099",
+      "response_data": null
+    }
+  ]
+}

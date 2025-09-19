@@ -536,7 +536,7 @@ export default function App() {
               <div className="grid grid-cols-2 gap-4">
                 <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-white to-gray-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Total Issues</p>
+                    <p className="text-sm text-muted-foreground">Your Issues</p>
                     <div className="mt-1 flex items-center gap-2">
                       <FileText className="h-5 w-5 text-slate-600" />
                       <span className="text-2xl font-semibold">{totalIssues}</span>
@@ -545,7 +545,7 @@ export default function App() {
                 </Card>
                 <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-amber-50 to-yellow-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Submitted</p>
+                    <p className="text-sm text-muted-foreground">Your Submitted</p>
                     <div className="mt-1 flex items-center gap-2">
                       <Clock className="h-5 w-5 text-amber-500" />
                       <span className="text-2xl font-semibold">{submittedCount}</span>
@@ -554,7 +554,7 @@ export default function App() {
                 </Card>
                 <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Acknowledged</p>
+                    <p className="text-sm text-muted-foreground">Your Acknowledged</p>
                     <div className="mt-1 flex items-center gap-2">
                       <Clock className="h-5 w-5 text-blue-500" />
                       <span className="text-2xl font-semibold">{acknowledgedCount}</span>
@@ -563,13 +563,50 @@ export default function App() {
                 </Card>
                 <Card className="rounded-2xl border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
                   <CardContent className="p-4">
-                    <p className="text-sm text-muted-foreground">Resolved</p>
+                    <p className="text-sm text-muted-foreground">Your Resolved</p>
                     <div className="mt-1 flex items-center gap-2">
                       <CheckCircle className="h-5 w-5 text-green-600" />
                       <span className="text-2xl font-semibold">{resolvedCount}</span>
                     </div>
                   </CardContent>
                 </Card>
+              </div>
+
+              {/* Overall Community Statistics */}
+              <div className="space-y-3">
+                <div className="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white rounded-2xl p-4 shadow-xl">
+                  <h3 className="text-lg font-semibold mb-3 text-center">Community Overview</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white/10 rounded-xl p-3 text-center">
+                      <p className="text-xs opacity-80">Total Issues</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <FileText className="h-4 w-4" />
+                        <span className="text-xl font-bold">{allIssuesStats.total}</span>
+                      </div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 text-center">
+                      <p className="text-xs opacity-80">Active</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <Clock className="h-4 w-4 text-amber-300" />
+                        <span className="text-xl font-bold">{allIssuesStats.submitted}</span>
+                      </div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 text-center">
+                      <p className="text-xs opacity-80">In Progress</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <Clock className="h-4 w-4 text-blue-300" />
+                        <span className="text-xl font-bold">{allIssuesStats.acknowledged}</span>
+                      </div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 text-center">
+                      <p className="text-xs opacity-80">Resolved</p>
+                      <div className="flex items-center justify-center gap-1 mt-1">
+                        <CheckCircle className="h-4 w-4 text-green-300" />
+                        <span className="text-xl font-bold">{allIssuesStats.resolved}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <div className="space-y-3">

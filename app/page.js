@@ -617,7 +617,7 @@ export default function App() {
                 >
                   <div className="flex items-center gap-2">
                     <FileText className="h-4 w-4 text-blue-600" />
-                    <span>View All Issues</span>
+                    <span>View My Issues</span>
                   </div>
                   <span className="text-muted-foreground">›</span>
                 </div>

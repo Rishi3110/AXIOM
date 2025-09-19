@@ -183,7 +183,7 @@ backend:
     file: "Supabase Dashboard"
     stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
@@ -191,6 +191,33 @@ backend:
       - working: false
         agent: "main"
         comment: "Need to research and create Supabase storage bucket configuration for image uploads."
+      - working: false
+        agent: "testing"
+        comment: "Infrastructure issue - storage bucket needs to be created in Supabase dashboard. Backend API handles image_url field correctly with graceful fallbacks."
+
+  - task: "Personalized Issues API Backend"
+    implemented: false
+    working: false
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "GET /api/issues returns ALL issues (18 total) instead of user-specific issues. No query parameter or endpoint filtering by user_id implemented. Personalization appears to be handled on frontend."
+
+  - task: "Overall Statistics API Backend"
+    implemented: false
+    working: false
+    file: "/app/app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "No dedicated statistics endpoint found. Tested /api/stats, /api/statistics, /api/issues/stats, /api/community/stats - none exist. Statistics calculation appears to be handled on frontend from raw /api/issues data."
 
 frontend:
   - task: "Remove Top Navigation Bar"

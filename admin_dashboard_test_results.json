@@ -1,0 +1,108 @@
+{
+  "test_type": "Admin Dashboard Backend API",
+  "total_tests": 14,
+  "passed": 8,
+  "failed": 6,
+  "success_rate": "57.1%",
+  "timestamp": "2025-09-19T16:06:02.776238",
+  "test_details": [
+    {
+      "test": "Existing API Health",
+      "success": true,
+      "message": "All existing endpoints are working correctly",
+      "timestamp": "2025-09-19T16:05:44.907496",
+      "response_data": null
+    },
+    {
+      "test": "Get Departments (Initial)",
+      "success": false,
+      "message": "HTTP 500: {\"error\":\"Failed to fetch departments\"}",
+      "timestamp": "2025-09-19T16:05:45.785982",
+      "response_data": null
+    },
+    {
+      "test": "Create Department",
+      "success": false,
+      "message": "HTTP 500: {\"error\":\"Failed to create department\"}",
+      "timestamp": "2025-09-19T16:05:47.179752",
+      "response_data": null
+    },
+    {
+      "test": "Create Department (Default Active)",
+      "success": false,
+      "message": "HTTP 500: {\"error\":\"Failed to create department\"}",
+      "timestamp": "2025-09-19T16:05:48.585697",
+      "response_data": null
+    },
+    {
+      "test": "Create Department (Missing Name)",
+      "success": true,
+      "message": "Correctly returned 400 for missing name field",
+      "timestamp": "2025-09-19T16:05:49.124594",
+      "response_data": null
+    },
+    {
+      "test": "Get Departments (After Creation)",
+      "success": false,
+      "message": "HTTP 500: {\"error\":\"Failed to fetch departments\"}",
+      "timestamp": "2025-09-19T16:05:50.537607",
+      "response_data": null
+    },
+    {
+      "test": "Setup Test Issue",
+      "success": true,
+      "message": "Test issue created with ID: CIV-1758297952004-LBDZ4",
+      "timestamp": "2025-09-19T16:05:52.903318",
+      "response_data": null
+    },
+    {
+      "test": "Update Issue (Admin Fields)",
+      "success": false,
+      "message": "HTTP 500: {\"error\":\"Failed to update issue\"}",
+      "timestamp": "2025-09-19T16:05:53.796120",
+      "response_data": null
+    },
+    {
+      "test": "Update Issue (Status Only)",
+      "success": true,
+      "message": "Status updated successfully (admin fields may not be preserved)",
+      "timestamp": "2025-09-19T16:05:54.684652",
+      "response_data": null
+    },
+    {
+      "test": "Update Issue (Invalid Status)",
+      "success": true,
+      "message": "Correctly returned 400 for invalid status",
+      "timestamp": "2025-09-19T16:05:55.225155",
+      "response_data": null
+    },
+    {
+      "test": "Update Nonexistent Issue",
+      "success": true,
+      "message": "Correctly returned 500 for non-existent issue",
+      "timestamp": "2025-09-19T16:05:56.123497",
+      "response_data": null
+    },
+    {
+      "test": "Get Issues (User Filter)",
+      "success": true,
+      "message": "Retrieved 1 issues for specific user",
+      "timestamp": "2025-09-19T16:05:57.541554",
+      "response_data": null
+    },
+    {
+      "test": "CORS Headers (Admin Endpoints)",
+      "success": true,
+      "message": "All admin endpoints have proper CORS headers",
+      "timestamp": "2025-09-19T16:05:58.094552",
+      "response_data": null
+    },
+    {
+      "test": "API Response Consistency",
+      "success": false,
+      "message": "Endpoint /departments returned 500",
+      "timestamp": "2025-09-19T16:06:02.276014",
+      "response_data": null
+    }
+  ]
+}

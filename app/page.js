@@ -80,8 +80,14 @@ export default function App() {
 
   useEffect(() => {
     checkAuth()
-    loadIssues()
+    loadAllIssuesStats()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      loadUserIssues()
+    }
+  }, [user])
 
   const checkAuth = async () => {
     try {

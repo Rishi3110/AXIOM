@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Enhanced Civic Reporter app with navigation improvements and image upload functionality"
+user_problem_statement: "Create a secure, standalone admin dashboard for the Civic_Reporter app with comprehensive overview, interactive map, and issue management capabilities"
 
 backend:
   - task: "API Health Check Endpoint"
